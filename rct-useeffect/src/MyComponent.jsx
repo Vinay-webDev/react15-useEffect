@@ -23,7 +23,9 @@ function MyComponent() {
         /* it's always good prcatice to have updater function*/
         setCount( c => c + 1 );
     }
-
+    useEffect(() => {
+        document.title = `Count: ${count}`;
+    })
 
     return(
         <>
