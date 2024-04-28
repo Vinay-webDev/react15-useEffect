@@ -18,23 +18,35 @@ import React, {useState, useEffect} from 'react';
 function MyComponent() {
     
     const [count, setCount] = useState(0);
+    /* let's add another state variable */
+    const [color, setColor] = useState("green");
+
+    /* 1. add dependencies 
+    ===>>> an empty array to do side code only when component mounts
+    ===>>> an array with value to do side code 
+    when component mounts + value changes */
+    useEffect(() => {
+        document.title = `Count: ${count} color: ${color}`;
+    }, [count, color]);
 
     function addCount() {
         /* it's always good prcatice to have updater function*/
         setCount( c => c + 1 );
     }
-    /* add dependencies 
-    ===>>> an empty array to do side code only when component mounts
-    ===>>> an array with value to do side code 
-    when component mounts + value changes */
-    useEffect(() => {
-        document.title = `Count: ${count}`;
-    }, [count]);
+    /* 2. to demonstrate the use of dependencies let's have example */
+    function substractCount() {
+        setCount( c => c - 1 );
+    }
+    function changeColor() {
+        setColor( c => c === "green" ? "red" : "green" );
+    }
 
     return(
         <>
-            <p> Count: {count} </p>
+            <p style={{color: color}} > Count: {count} </p>
             <button onClick={addCount} > add </button>
+            <button onClick={substractCount} > substract </button> <br />
+            <button onClick={changeColor} > change color </button>
         </>
     );
 }
